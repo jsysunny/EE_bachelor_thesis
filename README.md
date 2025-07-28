@@ -71,18 +71,28 @@
 &nbsp;
 ## 2. 🔧 구성 요소
 
-## 🔧 구성 요소
-
 | 구성 요소            | 설명                                                                 | 이미지 |
 |---------------------|----------------------------------------------------------------------|--------|
-| **Arduino Nano 33 BLE Sense** | EOG 센서로부터 신호를 받아 실시간으로 시선 방향을 분석하고, 딥러닝 모델을 통해 판단된 결과에 따라 로봇팔을 제어함. | <img width="120" src="https://github.com/user-attachments/assets/5a5c921e-9021-4990-8892-2aa33eaebafc" /> |
-| **EOG 센서**        | 안구 전위(Electrooculogram)를 감지하여 눈의 좌우 움직임과 깜빡임 등을 아날로그 신호로 출력함.           | ![eog 사진](https://github.com/user-attachments/assets/dc2073be-53a0-4884-b0e6-b9ad2de862f3) |
-| **서보 모터 (SG90 / MG995)** | 로봇팔 관절을 구동하여 시선 방향에 따라 원하는 위치로 움직임을 수행함. MG995는 힘이 필요한 부위, SG90은 가벼운 부위에 사용됨. | ![모터사진](https://github.com/user-attachments/assets/97048b8f-518e-4930-895a-cad75dea3428) |
-| **3D 프린터 로봇팔** | 실제 음식을 집을 수 있도록 설계된 로봇 팔 구조물. 3D 프린터로 출력하여 사용자 맞춤형 형태로 제작 가능.         | <img width="140" src="https://github.com/user-attachments/assets/2814adce-4669-40f8-b355-288e6d7c45f6" /> |
+| **Arduino Nano 33 BLE Sense** | EOG 센서로부터 신호를 받아 실시간으로 시선 방향을 분석하고, 딥러닝 모델을 통해 판단된 결과에 따라 로봇팔을 제어함. | <img width="300" src="https://github.com/user-attachments/assets/5a5c921e-9021-4990-8892-2aa33eaebafc" /> |
+| **PSL-iEOG2 EOG 센서**        | 안구 전위(Electrooculogram)를 감지하여 눈의 좌우 움직임과 깜빡임 등을 아날로그 신호로 출력함.           | <img width="300" src="https://github.com/user-attachments/assets/dc2073be-53a0-4884-b0e6-b9ad2de862f3" /> |
+| **서보 모터 (SG90 / MG995)** | 로봇팔 관절을 구동하여 시선 방향에 따라 원하는 위치로 움직임을 수행함. MG995는 힘이 필요한 부위, SG90은 가벼운 부위에 사용됨. | <img width="300" src="https://github.com/user-attachments/assets/97048b8f-518e-4930-895a-cad75dea3428" /> |
+| **3D 프린터 로봇팔** | 실제 음식을 집을 수 있도록 설계된 로봇 팔 구조물. 3D 프린터로 출력하여 사용자 맞춤형 형태로 제작 가능.         | <img width="300" src="https://github.com/user-attachments/assets/2814adce-4669-40f8-b355-288e6d7c45f6" /> |
 
-
+- PSL-iEOG2 : 168,960원
+- arudino Nano 33 BLE : 59,900원
+- TowerProM mg995 모터 4개 : 26000원
+- SG-90 모터 2개 :２,800원
+- AA*3 배터리팩 4개 : 4000원
+- AA 배터리 5개 : 13500원
+- 아두이노 우노 2개 :19800원
+- 배터리 3구 홀더 2개 : 1980원
+- breadboard 1개 : 800원
+- arudino uno R3 : 26500원
+- arudino nano : 29100원
+- breadboard Jumper 18개 : 43200원
 
 &nbsp;
+
 ## 3. 💻 사용 기술
 
 | 기술 | 내용 |
@@ -97,90 +107,117 @@
 
 &nbsp;
 ## 4. 🧭 동작 흐름 요약
-<img width="600" height="224" alt="image" src="https://github.com/user-attachments/assets/f9b3e453-4a83-46d6-85bd-8abab347f9d9" />
-<img width="600" height="1463" alt="image" src="https://github.com/user-attachments/assets/059756fc-f98b-4823-a8c3-b05fa19cbf83" />
 
-&nbsp;
-### 🏠 퇴근 모드
+<img width="652" height="473" alt="image" src="https://github.com/user-attachments/assets/340626b4-d98d-4b9c-bfdc-103f4d0fc735" />
 
-0. **사용자 아이템 리스트**  
-   - 카드키, 껌, 지갑, 스낵, 텀블러
+### 📡 EOG 수집
+EOG란 각막과 망막 간 전위를 측정 결과 발생하는 신호로 눈의 움직임을 기록할 때 주로 사용된다.  
+피지오랩사의 PSL EOG 센서를 이용하여 안구전도를 측정하였고, 아두이노 나노와 연결하여 Arduino IDE 및 Serial SW를 통해 측정 결과를 확인하였다.
 
-1. **홈 위치 대기**  
-   - Force 센서를 활용해 충돌 감지 상태에서 대기
+이번 논문에서는 눈의 좌우에 전극을 배치하여 horizontal한 EOG를 얻었다.  
+전극은 총 3개로 양안의 좌우와 이마 중앙에 부착하여 전압차이를 각각 측정할 수 있다.
 
-2. **수납 알고리즘 시작**  
-   - y축 방향 외력 감지 (Check Force Condition) → 수납 알고리즘 진입  
-   - 💬 음성 출력: `"Good night! Have a sweet dream"`  
-   - 📺 LCD 출력: `good night!`
+- PSL 센서는 2채널 신호를 제공 (아날로그, 디지털)  
+- 이 중 아날로그 신호만 사용  
+- 750V/V 증폭도  
+- 60Hz notch filter 포함  
+- 0.05Hz cutoff frequency의 high pass filter  
+- 10Hz cutoff frequency의 low pass filter  
+- 출력 전압: 0~3.3V
 
-3. **인사 동작 (Good night)**  
-   - `Move_periodic` 동작으로 인사 수행  
-   - 💬 음성 출력: `"Good night!"`  
-   - 📺 LCD 출력: `"Good night!"`
+<img width="797" height="281" alt="image" src="https://github.com/user-attachments/assets/408c7b3e-a216-483f-af66-ad0f24a5c994" />
 
-4. **사용자 입력**  
-   - 원하는 물체 및 선반 위치 입력  
-   - 예: `텀블러 1`
+<img width="807" height="404" alt="image" src="https://github.com/user-attachments/assets/937b0241-c563-4d71-8d9b-f2b6f350d047" />
 
-5. **물체 탐색**  
-   - ㄹ자 구조로 반복 탐색 수행  
-     - Movel 명령으로 x축 400mm, y축 50mm 탐색  
-   - 📺 LCD 출력: `"Searching"` Gage 애니메이션 표시
+분석을 위해 먼저 데이터 전처리를 수행하였다.
 
-6. **물체 분류 및 Grip 동작**  
-   - 비동기 탐색 중 `Get tool force`로 외력 감지 → 물체 존재 확인  
-   - 📺 LCD 출력: `"grabbed object!: {Detected name}"`  
-   - 💬 음성 출력: `{Detected name}`  
-   - 순응제어로 z축 위치 파악 → `height_dict`와 비교하여 분류  
-   - `Release` → `Grip` 동작으로 물체 집기
+- Sampling frequency를 125Hz로 downsampling  
+- 평균 값 제거 및 scale 확대를 통해 데이터를 더 정확히 파악  
+- 1초 간격으로 정면과 left (또는 right)를 바라봄  
+- 2초 간격 (250 sample) 으로 EOG를 분리하여 확인
 
-7. **입력 위치에 물품 수납**  
-   - **비어있는 경우**: 원래 위치 (`placed_list`)에 수납  
-   - **이미 물건이 있는 경우**:  
-     - 예: `stacked = [1, 0, 0, 0]` → `stacked = [2, 0, 0, 0]`  
-     - x축으로 떨어진 지점에 수납  
-   - 📺 LCD 출력: `"Placed object: {Detected name}"`  
-   - 💬 음성 출력: `{Detected name}`
+결과를 보면 왼쪽과 오른쪽을 바라봤을 때의 EOG 파형은 차이가 있었다.  
+- 왼쪽 → 중앙에서 아래로 떨어지는 파형  
+- 오른쪽 → 위로 튀는 파형  
 
-8. **그리퍼 홈 위치 복귀**  
-   - 수납 완료 후, 그리퍼가 홈 위치로 이동하여 대기  
-   - 📺 LCD 출력: `"Request complete"`  
-   - 💬 음성 출력: `"Request complete"`
+전체 데이터 셋에서 확인해보면 아래와 같은 파형이다.
 
-&nbsp;
-### 🚪 출근 모드
-0. **홈 위치 대기**  
-   - Force 센서를 활용해 충돌 감지 상태에서 대기
+> 특히 현재 측정 중인 EOG는 안구 움직임의 변화를 측정하기 때문에  
+> 왼쪽과 오른쪽 EOG 간의 데이터 절대값 크기는 큰 차이가 없었으며,  
+> threshold로 단순 분류하기엔 한계가 있었다.
 
-1. **꺼내기 알고리즘 시작**  
-   - x축 방향 외력 감지 (Check Force Condition) → 꺼내기 알고리즘 진입  
-   - 💬 음성 출력: `"Have a nice day!"`  
-   - 📺 LCD 출력: `"Hello, Have a nice day!"`
+<img width="587" height="233" alt="image" src="https://github.com/user-attachments/assets/099fff83-1609-4978-b938-a644da3eaa8b" />
 
-2. **인사 동작 (Hello)**  
-   - `Move_periodic` 동작으로 인사 수행  
-   - 💬 음성 출력: `"Hello!"`  
-   - 📺 LCD 출력: `"Hello!"`
+처음 방향 변화가 일어난 순간에만 eog 변화의 기울기가 다른 것을 확인하였다. 따라서 우리
+는 안구움직임 변화가 일어난 직후 5초간의 eog데이터를 수집하여 이의 미분값으로 데이터셋
+을 확보하였다
 
-3. **사용자 입력**  
-   - 원하는 물체 및 선반 위치 입력  
-   - 예: `텀블러 1`
+<img width="622" height="249" alt="image" src="https://github.com/user-attachments/assets/6ff94c7b-98b6-4777-b3ae-cfd5dbbab40b" />
 
-4. **물품 위치 비교 및 꺼내기**  
-   - **입력값과 위치가 일치하는 경우** → 해당 위치에서 물건 꺼냄  
-     - 📺 LCD 출력: `{Detected name} out`  
-     - 💬 음성 출력: `{Detected name}`  
-   - **불일치하는 경우** → 동작 수행하지 않음
+번갈아가면서 측정해 본 결과 30도를 바라봤을 때와 90도를 바라봤을 때 약간의 상대적인 차
+이는 있었지만, 각각 실험한 후 수치로 확인해보았을 때는 큰 결과가 보이지 않았다. 따라서 왼
+쪽과 오른쪽, 가운데를 분류한 후에 횟수로 각도를 조절하도록 설계하였다
 
-5. **꺼낸 물품 배치**  
-   - 최대 5개까지 꺼낼 수 있음  
-   - 입력된 순서대로, 홈 위치에서 일정 간격으로 떨어진 위치에 배치
+ 모델 제작
+각 데이터셋을 SAMPLES_PER_EOG 값인 5개 샘플로 나눠 데이터 프레임에 저장한다. 각각을
+1차원 배열로 변환한뒤 inputs 리스트에 추가한다.
 
-6. **그리퍼 홈 위치 복귀**  
-   - 꺼내기 완료 후, 그리퍼가 홈 위치로 복귀  
-   - 📺 LCD 출력: `"Request complete"`  
-   - 💬 음성 출력: `"Request complete"`
+<img width="576" height="159" alt="image" src="https://github.com/user-attachments/assets/cd734c30-e586-48d6-a6b2-b6d0f463d68a" />
+
+해당 세그먼트가 사용하여 “left”, “right”, “center” 세가지 동작 중 어떤 눈동자 움직임 유형
+에 해당하는지를 나타내는 이진 벡터 One-hot encoding vecter는 outputs 리스트에 추가된
+다
+
+EOG 방향 분류 기계 학습 모델 제작
+방향 분류를 위한 3가지 모델을 구현하고 성능을 비교하여 최종 모델을 선정하였다.
+CNN, SVM, LSTM 모델에 각각 training data로 모델을 훈련시키고 성능을 비교해 본 결과, CNN은 80.7%의
+정확도, SVM은 88.8%, LSTM은 92.5%에 도달하였다. 정확도 비교 결과, LSTM 모델이 제일 높았기 때문에
+최종적으로 LSTM 모델을 선정했다.
+아래의 결과는 이번 연구에서 사용한 LSTM 모델의 loss 그래프 및 모델 구조이다
+
+<img width="2917" height="300" alt="image" src="https://github.com/user-attachments/assets/e5efd2e9-1446-4b7b-b44f-40b92dc432a2" />
+
+<img width="1059" height="598" alt="image" src="https://github.com/user-attachments/assets/974decef-c945-4a01-bc82-730f28b3d2e4" />
+
+로봇팔 파트
+- 로봇팔 3D 프린팅 및 조립
+로봇팔이 복잡하고 정밀한 작업을 수행할 수 있게 6DOF(6Degrees of Freedom) 로봇팔을 만
+들기로 결정하고 3D modeling 하였다. 기저 회전 부분(mg995), 어깨 관절(mg995 2개), 팔꿈
+치 관절(mg995), 팔목 관절(sg90), 집게 부분(sg90)에 각각 모터를 달아 로봇팔의 자유도를
+결정했다. 관절에 모터를 부착하고 모델링한 부품들을 적절히 연결하여 로봇팔 전체 구조를
+완성했다.
+
+<img width="693" height="253" alt="image" src="https://github.com/user-attachments/assets/b0077c95-b36c-4cac-a398-0931d86e590d" />
+
+- 회로 구성
+로봇팔의 자유로운 움직임을 위해 각 모터의 전선을 연장하였다. 각 모터들을 제어하기 위해
+Arduino 보드의 핀 번호와 맞게 적절히 연결해주었다. 또한 모터에 강한 힘을 주기 위해 5V
+의 Power Supply를 따로 브레드보드에 연결해주었고, 이를 모터에 인가해주었다. 전력 손실
+을 최소화하기 위해 점프선은 되도록 짧은 것을 선택하여 사용하였다.
+- Arduino 코드
+Arduino Nano 33 Ble Sense 보드를 사용했고, arduino 코드를 통해 서보모터들을 제어함으
+로써 로봇팔의 움직임을 구성했다.
+· 로봇팔로 물건을 집기 위한 코드
+각 모터들을 arduino 보드의 핀 번호에 맞게 적절히 코드로 연결해주고, 각 모터의 각도를
+제어함으로써 로봇의 움직임이 물건을 집도록 설계하였다
+
+<img width="1119" height="759" alt="image" src="https://github.com/user-attachments/assets/0052be4e-ef41-47a7-84c9-b2604e01437f" />
+
+<img width="1124" height="723" alt="image" src="https://github.com/user-attachments/assets/58e24a3b-5bac-46b5-af82-9e61803bb4fe" />
+
+방향 전환을 위한 코드
+eog 센서를 이용해 방향 전환을 할 때, 그에 맞는 state machine을 설계해 로봇팔이 움직이
+도록 만들었다
+
+<img width="1124" height="629" alt="image" src="https://github.com/user-attachments/assets/6f8ef34f-51cc-4cb8-92f0-d392a9d9a9fc" />
+
+<img width="440" height="158" alt="image" src="https://github.com/user-attachments/assets/58844b15-6e3e-4815-a592-17cf558783b1" />
+
+<img width="883" height="399" alt="image" src="https://github.com/user-attachments/assets/1d651cbf-0edd-45bf-aee6-c6f938ea0c28" />
+
+결과
+<img width="857" height="341" alt="image" src="https://github.com/user-attachments/assets/3a3af50d-4ca5-4de7-8538-c315d31d9a54" />
+
 
 &nbsp;
 ## 5. 💻 코드 실행 방법
@@ -191,40 +228,38 @@
 ```bash
 ros2 run rokey_project robot_control_node
 ```
-### 🍓 Raspberry Pi Node
-- 코드: [`feedback_node.py`](./rokey_project/rokey_project/feedback_node.py)
 
-```bash
-ros2 run rokey_project feedback_node
-```
 &nbsp;
+
+
+
 ## 6. 📷 시연 영상 / 이미지
 > https://youtu.be/bbBvETzXTgY
 
-> <img width="600" height="415" alt="image" src="https://github.com/user-attachments/assets/52fde78e-1d48-4131-9ba5-a52d8baa4287" />
-
-> <img width="600" height="415" alt="image" src="https://github.com/user-attachments/assets/24839a30-8b8b-4170-aeda-596b4a016ea2" />
-
-> <img width="600" height="392" alt="image" src="https://github.com/user-attachments/assets/a3af83a5-ea75-4e62-b817-4eddd1cb01de" />
-
-> <img width="300" height="300" alt="image" src="https://github.com/user-attachments/assets/bfb44ccb-1988-4563-abb9-64399405e04d" />
-
-
 &nbsp;
 ## 7. 🌟 기대 효과
+- 기대효과
+eog 센서는 빠른 반응 속도를 제공해 사용자의 의도를 즉시 반영할 수 있다. 이를 통해 로봇팔의 실
+시간 제어를 가능하게 하여 효율성이 높아질 수 있다. 또한 피부에 부착하는 방식이므로, 수술이나 복
+잡한 설치 과정 없이 몸이 불편한 사용자가 편하게 사용이 가능하여 접근성과 안전성이 높다. 이를 활
+용하여 산업, 의료, 서비스 등 여러 분야에서 응용 범위를 확장시켜 발전시킬 수 있다.
+- 활용방안
+신체 일부가 불편한 사람들을 위한 보조기기로 활용될 수 있다. 또한 eog 센서를 이용한 로봇팔 제어
+는 재활 치료에서 사용자의 자율성을 증진시켜 환자의 회복을 돕는 데 큰 도움을 줄 수도 있다. 이외
+에도 정밀 작업이 필요한 산업 분야나 카페나 레스토랑과 같이 음료나 음식의 서빙이 필요한 서비스
+분야에도 적극 활용될 수 있다.
+### 결론 및 제언
+eog 센서를 이용한 로봇팔 제어 기술은 생체 신호를 이용한 정밀하고 신속한 제어를 가능하게 한다.
+이 기술은 비침습적인 인터페이스를 통해 사용자의 편의성과 안전성을 보장하며, 다양한 환경과 작업
+조건에서 효율적으로 적용될 수 있다. 여러 분야에서의 활용 가능성을 고려할 때, eog 센서를 이용한
+로봇팔 제어 기술은 인간의 생활을 더욱 풍요롭게 하고, 새로운 혁신을 이끌어 낼 수 있는 잠재력을
+가지고 있다고 본다. 그러므로 지속적인 연구와 개발, 사용자 중심의 접근, 윤리적 고려와 사회적 수용
+성을 바탕으로 이 기술이 더욱 발전하고, 우리의 삶에 긍정적인 영향을 미칠 수 있기를 기대한다
 
-- 일상생활에 협동로봇 도입 가능성 증진
-- 출퇴근 시간의 불편함 해소
-- 다양한 물품 및 센서로의 확장성 기대
-
-### ⚠️ 한계점 및 개선점
-
-- 그리퍼의 중량, 가속도/속도에 따른 force 조절 미흡 → 물체 밀림 발생
-- 선반 높이 제한 → 워크스페이스 조정 필요
 
 &nbsp;
 ## 🙌 팀원
 
-- 백홍하,정서윤,정민섭,서형원
+-윤하연, 정서윤, 안병호 
 
 
