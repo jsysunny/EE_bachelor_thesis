@@ -245,9 +245,6 @@ EOG 방향 분류를 위한 3가지 모델을 구현하고 성능 비교 후 최
 
 &nbsp;
 
-## 5. 경희대학교 캡스톤 디자인 대회 최우수상
-<img width="669" height="932" alt="image" src="https://github.com/user-attachments/assets/bc54b05b-6e03-4fe1-bd90-78044bc69fb8" />
-
 
 ## 5. 💻 코드 실행 방법
 
@@ -269,7 +266,9 @@ ros2 run rokey_project robot_control_node
 &nbsp;
 
 ### 경희대학교 캡스톤 디자인 대회 최우수상
-<img width="669" height="932" alt="image" src="https://github.com/user-attachments/assets/bc54b05b-6e03-4fe1-bd90-78044bc69fb8" />
+![캡스톤디자인대회전체사진](https://github.com/user-attachments/assets/d9fc142f-a1ec-436a-888b-d0d8fbc1dbe4)
+
+![캡스톤디자인대회최우수상](https://github.com/user-attachments/assets/9c34a8d0-3c7f-4ca7-8bd4-0bce211a80c4)
 
 &nbsp;
 
