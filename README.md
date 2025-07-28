@@ -244,6 +244,11 @@ EOG 방향 분류를 위한 3가지 모델을 구현하고 성능 비교 후 최
 - LSTM 기반 EOG 분류 모델과 로봇팔 동작 시스템의 실시간 연동 가능성 확인
 
 &nbsp;
+
+## 5. 경희대학교 캡스톤 디자인 대회 최우수상
+<img width="669" height="932" alt="image" src="https://github.com/user-attachments/assets/bc54b05b-6e03-4fe1-bd90-78044bc69fb8" />
+
+
 ## 5. 💻 코드 실행 방법
 
 ### 🤖 Robot Control Node
@@ -258,7 +263,7 @@ ros2 run rokey_project robot_control_node
 
 
 ## 6. 📷 시연 영상 / 이미지
-> 
+> https://youtu.be/0Lg0ZxRh0jA
 
 &nbsp;
 ## 7. 🌟 기대 효과
