@@ -110,6 +110,8 @@
 
 <img width="652" height="473" alt="image" src="https://github.com/user-attachments/assets/340626b4-d98d-4b9c-bfdc-103f4d0fc735" />
 
+&nbsp;
+
 ### 📡 EOG 수집
 EOG란 각막과 망막 간 전위를 측정 결과 발생하는 신호로 눈의 움직임을 기록할 때 주로 사용된다.  
 피지오랩사의 PSL EOG 센서를 이용하여 안구전도를 측정하였고, 아두이노 나노와 연결하여 Arduino IDE 및 Serial SW를 통해 측정 결과를 확인하였다.
@@ -146,28 +148,34 @@ EOG란 각막과 망막 간 전위를 측정 결과 발생하는 신호로 눈�
 > 왼쪽과 오른쪽 EOG 간의 데이터 절대값 크기는 큰 차이가 없었으며,  
 > threshold로 단순 분류하기엔 한계가 있었다.
 
-<img width="587" height="233" alt="image" src="https://github.com/user-attachments/assets/099fff83-1609-4978-b938-a644da3eaa8b" />
+<img width="800" height="233" alt="image" src="https://github.com/user-attachments/assets/099fff83-1609-4978-b938-a644da3eaa8b" />
+
+&nbsp;
 
 ### 🔀 기울기 기반 분석
 
 처음 방향 변화가 일어난 순간에만 EOG 변화의 기울기가 다른 것을 확인하였다.  
 따라서 **안구 움직임 변화 직후 5초간의 EOG 데이터를 수집하고, 미분값으로 데이터셋을 구성**하였다.
 
-<img width="622" height="249" alt="image" src="https://github.com/user-attachments/assets/6ff94c7b-98b6-4777-b3ae-cfd5dbbab40b" />
+<img width="800" height="249" alt="image" src="https://github.com/user-attachments/assets/6ff94c7b-98b6-4777-b3ae-cfd5dbbab40b" />
 
 - 번갈아가며 30도, 90도 시선 전환 실험  
 - 수치적으로 큰 차이는 없음  
 → 왼쪽, 오른쪽, 가운데만 분류한 후 **횟수로 각도 조절**
+
+&nbsp;
 
 ### 🤖 모델 제작
 
 - 각 데이터셋을 `SAMPLES_PER_EOG` 값인 5개 샘플로 나눠 데이터프레임에 저장  
 - 각각 1차원 배열로 변환 후 `inputs` 리스트에 저장 
 
-<img width="576" height="159" alt="image" src="https://github.com/user-attachments/assets/cd734c30-e586-48d6-a6b2-b6d0f463d68a" />
+<img width="700" height="159" alt="image" src="https://github.com/user-attachments/assets/cd734c30-e586-48d6-a6b2-b6d0f463d68a" />
 
 - 해당 세그먼트가 나타내는 눈동자 움직임 유형: `left`, `right`, `center`  
 - 이를 one-hot encoding하여 `outputs` 리스트에 저장
+
+&nbsp;
 
 ### 🤖 모델 비교 및 선정
 
@@ -177,9 +185,11 @@ EOG 방향 분류를 위한 3가지 모델을 구현하고 성능 비교 후 최
 - SVM: 정확도 88.8%  
 - **LSTM: 정확도 92.5% → 최종 선택**
 
-<img width="2917" height="300" alt="image" src="https://github.com/user-attachments/assets/e5efd2e9-1446-4b7b-b44f-40b92dc432a2" />
+<img width="700" height="300" alt="image" src="https://github.com/user-attachments/assets/e5efd2e9-1446-4b7b-b44f-40b92dc432a2" />
 
 <img width="1059" height="598" alt="image" src="https://github.com/user-attachments/assets/974decef-c945-4a01-bc82-730f28b3d2e4" />
+
+&nbsp;
 
 ### 🛠️ 로봇팔 3D 프린팅 및 조립
 
@@ -189,13 +199,17 @@ EOG 방향 분류를 위한 3가지 모델을 구현하고 성능 비교 후 최
   - MG995 (기저 회전, 어깨 2개, 팔꿈치)  
   - SG90 (팔목, 집게)
 
-<img width="693" height="253" alt="image" src="https://github.com/user-attachments/assets/b0077c95-b36c-4cac-a398-0931d86e590d" />
+<img width="800" height="253" alt="image" src="https://github.com/user-attachments/assets/b0077c95-b36c-4cac-a398-0931d86e590d" />
+
+&nbsp;
 
 ### 🔌 회로 구성
 
 - 각 모터 전선을 연장 후 Arduino 보드 핀 번호에 맞게 연결  
 - 모터에 강한 힘을 주기 위해 5V 파워 서플라이를 별도 연결  
 - 전력 손실 최소화를 위해 짧은 점프선 사용
+
+&nbsp;
 
 ### 💻 Arduino 코드 구성
 
@@ -207,6 +221,8 @@ EOG 방향 분류를 위한 3가지 모델을 구현하고 성능 비교 후 최
 
 <img width="1124" height="723" alt="image" src="https://github.com/user-attachments/assets/58e24a3b-5bac-46b5-af82-9e61803bb4fe" />
 
+&nbsp;
+
 ### 🔁 방향 전환 로직
 
 - EOG 센서를 이용해 방향 전환 감지  
@@ -217,6 +233,8 @@ EOG 방향 분류를 위한 3가지 모델을 구현하고 성능 비교 후 최
 <img width="440" height="158" alt="image" src="https://github.com/user-attachments/assets/58844b15-6e3e-4815-a592-17cf558783b1" />
 
 <img width="883" height="399" alt="image" src="https://github.com/user-attachments/assets/1d651cbf-0edd-45bf-aee6-c6f938ea0c28" />
+
+&nbsp;
 
 ## ✅ 결과
 
