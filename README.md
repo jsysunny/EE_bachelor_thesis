@@ -248,12 +248,9 @@ EOG 방향 분류를 위한 3가지 모델을 구현하고 성능 비교 후 최
 
 ## 5. 💻 코드 실행 방법
 
-### 🤖 Robot Control Node
-- 코드: [`robot_control_node.py`](./rokey_project/rokey_project/robot_control_node.py)
+### 🤖 EogDeepLearning-Robot
+- 코드: [`eog_deeplearning`](./Arduino/Arduino/eog_deeplearning/eog_deeplearning-DESKTOP-O965BML.ino)
 
-```bash
-ros2 run rokey_project robot_control_node
-```
 
 &nbsp;
 
