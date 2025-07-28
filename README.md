@@ -263,6 +263,16 @@ ros2 run rokey_project robot_control_node
 
 
 ## 6. 📷 시연 영상 / 이미지
+### 경희대학교 전자공학과 졸업논문 발표
+<img width="670" height="481" alt="image" src="https://github.com/user-attachments/assets/ee818f96-756f-4eaf-9bdc-710e653cd323" />
+
+&nbsp;
+
+### 경희대학교 캡스톤 디자인 대회 최우수상
+<img width="669" height="932" alt="image" src="https://github.com/user-attachments/assets/bc54b05b-6e03-4fe1-bd90-78044bc69fb8" />
+
+&nbsp;
+
 > https://youtu.be/0Lg0ZxRh0jA
 
 &nbsp;
