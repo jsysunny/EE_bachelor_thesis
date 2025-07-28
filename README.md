@@ -148,66 +148,69 @@ EOG란 각막과 망막 간 전위를 측정 결과 발생하는 신호로 눈�
 
 <img width="587" height="233" alt="image" src="https://github.com/user-attachments/assets/099fff83-1609-4978-b938-a644da3eaa8b" />
 
-처음 방향 변화가 일어난 순간에만 eog 변화의 기울기가 다른 것을 확인하였다. 따라서 우리
-는 안구움직임 변화가 일어난 직후 5초간의 eog데이터를 수집하여 이의 미분값으로 데이터셋
-을 확보하였다
+### 🔀 기울기 기반 분석
+
+처음 방향 변화가 일어난 순간에만 EOG 변화의 기울기가 다른 것을 확인하였다.  
+따라서 **안구 움직임 변화 직후 5초간의 EOG 데이터를 수집하고, 미분값으로 데이터셋을 구성**하였다.
 
 <img width="622" height="249" alt="image" src="https://github.com/user-attachments/assets/6ff94c7b-98b6-4777-b3ae-cfd5dbbab40b" />
 
-번갈아가면서 측정해 본 결과 30도를 바라봤을 때와 90도를 바라봤을 때 약간의 상대적인 차
-이는 있었지만, 각각 실험한 후 수치로 확인해보았을 때는 큰 결과가 보이지 않았다. 따라서 왼
-쪽과 오른쪽, 가운데를 분류한 후에 횟수로 각도를 조절하도록 설계하였다
+- 번갈아가며 30도, 90도 시선 전환 실험  
+- 수치적으로 큰 차이는 없음  
+→ 왼쪽, 오른쪽, 가운데만 분류한 후 **횟수로 각도 조절**
 
- 모델 제작
-각 데이터셋을 SAMPLES_PER_EOG 값인 5개 샘플로 나눠 데이터 프레임에 저장한다. 각각을
-1차원 배열로 변환한뒤 inputs 리스트에 추가한다.
+### 🤖 모델 제작
+
+- 각 데이터셋을 `SAMPLES_PER_EOG` 값인 5개 샘플로 나눠 데이터프레임에 저장  
+- 각각 1차원 배열로 변환 후 `inputs` 리스트에 저장 
 
 <img width="576" height="159" alt="image" src="https://github.com/user-attachments/assets/cd734c30-e586-48d6-a6b2-b6d0f463d68a" />
 
-해당 세그먼트가 사용하여 “left”, “right”, “center” 세가지 동작 중 어떤 눈동자 움직임 유형
-에 해당하는지를 나타내는 이진 벡터 One-hot encoding vecter는 outputs 리스트에 추가된
-다
+- 해당 세그먼트가 나타내는 눈동자 움직임 유형: `left`, `right`, `center`  
+- 이를 one-hot encoding하여 `outputs` 리스트에 저장
 
-EOG 방향 분류 기계 학습 모델 제작
-방향 분류를 위한 3가지 모델을 구현하고 성능을 비교하여 최종 모델을 선정하였다.
-CNN, SVM, LSTM 모델에 각각 training data로 모델을 훈련시키고 성능을 비교해 본 결과, CNN은 80.7%의
-정확도, SVM은 88.8%, LSTM은 92.5%에 도달하였다. 정확도 비교 결과, LSTM 모델이 제일 높았기 때문에
-최종적으로 LSTM 모델을 선정했다.
-아래의 결과는 이번 연구에서 사용한 LSTM 모델의 loss 그래프 및 모델 구조이다
+### 🤖 모델 비교 및 선정
+
+EOG 방향 분류를 위한 3가지 모델을 구현하고 성능 비교 후 최종 모델 선정
+
+- CNN: 정확도 80.7%  
+- SVM: 정확도 88.8%  
+- **LSTM: 정확도 92.5% → 최종 선택**
 
 <img width="2917" height="300" alt="image" src="https://github.com/user-attachments/assets/e5efd2e9-1446-4b7b-b44f-40b92dc432a2" />
 
 <img width="1059" height="598" alt="image" src="https://github.com/user-attachments/assets/974decef-c945-4a01-bc82-730f28b3d2e4" />
 
-로봇팔 파트
-- 로봇팔 3D 프린팅 및 조립
-로봇팔이 복잡하고 정밀한 작업을 수행할 수 있게 6DOF(6Degrees of Freedom) 로봇팔을 만
-들기로 결정하고 3D modeling 하였다. 기저 회전 부분(mg995), 어깨 관절(mg995 2개), 팔꿈
-치 관절(mg995), 팔목 관절(sg90), 집게 부분(sg90)에 각각 모터를 달아 로봇팔의 자유도를
-결정했다. 관절에 모터를 부착하고 모델링한 부품들을 적절히 연결하여 로봇팔 전체 구조를
-완성했다.
+### 🛠️ 로봇팔 3D 프린팅 및 조립
+
+- 복잡하고 정밀한 작업을 수행 가능한 6 DOF 로봇팔을 설계  
+- 3D 모델링 진행 후 부품 제작 및 조립  
+- 모터 구성:  
+  - MG995 (기저 회전, 어깨 2개, 팔꿈치)  
+  - SG90 (팔목, 집게)
 
 <img width="693" height="253" alt="image" src="https://github.com/user-attachments/assets/b0077c95-b36c-4cac-a398-0931d86e590d" />
 
-- 회로 구성
-로봇팔의 자유로운 움직임을 위해 각 모터의 전선을 연장하였다. 각 모터들을 제어하기 위해
-Arduino 보드의 핀 번호와 맞게 적절히 연결해주었다. 또한 모터에 강한 힘을 주기 위해 5V
-의 Power Supply를 따로 브레드보드에 연결해주었고, 이를 모터에 인가해주었다. 전력 손실
-을 최소화하기 위해 점프선은 되도록 짧은 것을 선택하여 사용하였다.
-- Arduino 코드
-Arduino Nano 33 Ble Sense 보드를 사용했고, arduino 코드를 통해 서보모터들을 제어함으
-로써 로봇팔의 움직임을 구성했다.
-· 로봇팔로 물건을 집기 위한 코드
-각 모터들을 arduino 보드의 핀 번호에 맞게 적절히 코드로 연결해주고, 각 모터의 각도를
-제어함으로써 로봇의 움직임이 물건을 집도록 설계하였다
+### 🔌 회로 구성
+
+- 각 모터 전선을 연장 후 Arduino 보드 핀 번호에 맞게 연결  
+- 모터에 강한 힘을 주기 위해 5V 파워 서플라이를 별도 연결  
+- 전력 손실 최소화를 위해 짧은 점프선 사용
+
+### 💻 Arduino 코드 구성
+
+- 사용 보드: **Arduino Nano 33 BLE Sense**  
+- Arduino 코드로 서보모터 제어 → 로봇팔 동작 구현
+- 각 모터의 핀과 각도 제어를 통해 **정확한 집기 동작** 구현
 
 <img width="1119" height="759" alt="image" src="https://github.com/user-attachments/assets/0052be4e-ef41-47a7-84c9-b2604e01437f" />
 
 <img width="1124" height="723" alt="image" src="https://github.com/user-attachments/assets/58e24a3b-5bac-46b5-af82-9e61803bb4fe" />
 
-방향 전환을 위한 코드
-eog 센서를 이용해 방향 전환을 할 때, 그에 맞는 state machine을 설계해 로봇팔이 움직이
-도록 만들었다
+### 🔁 방향 전환 로직
+
+- EOG 센서를 이용해 방향 전환 감지  
+- 상태 머신 설계(State Machine)로 방향에 따라 로봇팔 동작 분기
 
 <img width="1124" height="629" alt="image" src="https://github.com/user-attachments/assets/6f8ef34f-51cc-4cb8-92f0-d392a9d9a9fc" />
 
@@ -215,9 +218,12 @@ eog 센서를 이용해 방향 전환을 할 때, 그에 맞는 state machine을
 
 <img width="883" height="399" alt="image" src="https://github.com/user-attachments/assets/1d651cbf-0edd-45bf-aee6-c6f938ea0c28" />
 
-결과
+## ✅ 결과
+
 <img width="857" height="341" alt="image" src="https://github.com/user-attachments/assets/3a3af50d-4ca5-4de7-8538-c315d31d9a54" />
 
+- 사용자의 눈 움직임만으로 로봇팔이 정확한 방향 전환 및 집기 동작 성공  
+- LSTM 기반 EOG 분류 모델과 로봇팔 동작 시스템의 실시간 연동 가능성 확인
 
 &nbsp;
 ## 5. 💻 코드 실행 방법
