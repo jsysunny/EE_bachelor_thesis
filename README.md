@@ -1,5 +1,7 @@
 # EE_bachelor_thesis (2024.03~2024.06)
+
 &nbsp;
+
 ## 🧠 Robotic Arm Control Using Deep Learning-Based Electrooculogram
 
 
@@ -69,20 +71,16 @@
 &nbsp;
 ## 2. 🔧 구성 요소
 
-아두이노 33 ble
-eog 센서 
-3d 프린터 로봇
-모터 ( sg90, mg995)
+## 🔧 구성 요소
 
-아두이노 33ble 
-<img width="297" height="297" alt="image" src="https://github.com/user-attachments/assets/5a5c921e-9021-4990-8892-2aa33eaebafc" />
+| 구성 요소            | 설명                                                                 | 이미지 |
+|---------------------|----------------------------------------------------------------------|--------|
+| **Arduino Nano 33 BLE Sense** | EOG 센서로부터 신호를 받아 실시간으로 시선 방향을 분석하고, 딥러닝 모델을 통해 판단된 결과에 따라 로봇팔을 제어함. | <img width="120" src="https://github.com/user-attachments/assets/5a5c921e-9021-4990-8892-2aa33eaebafc" /> |
+| **EOG 센서**        | 안구 전위(Electrooculogram)를 감지하여 눈의 좌우 움직임과 깜빡임 등을 아날로그 신호로 출력함.           | ![eog 사진](https://github.com/user-attachments/assets/dc2073be-53a0-4884-b0e6-b9ad2de862f3) |
+| **서보 모터 (SG90 / MG995)** | 로봇팔 관절을 구동하여 시선 방향에 따라 원하는 위치로 움직임을 수행함. MG995는 힘이 필요한 부위, SG90은 가벼운 부위에 사용됨. | ![모터사진](https://github.com/user-attachments/assets/97048b8f-518e-4930-895a-cad75dea3428) |
+| **3D 프린터 로봇팔** | 실제 음식을 집을 수 있도록 설계된 로봇 팔 구조물. 3D 프린터로 출력하여 사용자 맞춤형 형태로 제작 가능.         | <img width="140" src="https://github.com/user-attachments/assets/2814adce-4669-40f8-b355-288e6d7c45f6" /> |
 
-![eog 사진](https://github.com/user-attachments/assets/dc2073be-53a0-4884-b0e6-b9ad2de862f3)
 
-![모터사진](https://github.com/user-attachments/assets/97048b8f-518e-4930-895a-cad75dea3428)
-
-3d 프린터 로봇
-<img width="360" height="382" alt="image" src="https://github.com/user-attachments/assets/2814adce-4669-40f8-b355-288e6d7c45f6" />
 
 &nbsp;
 ## 3. 💻 사용 기술
