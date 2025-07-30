@@ -10,7 +10,9 @@
 ## 🔗 출처 및 라이선스
 1. **A Method of EOG Signal Processing to Detect the Direction of Eye Movements**  
    - Manuel Merino, Octavio Rivera, Isabel Gómez, Alberto Molina, Enrique Dorronzoro  
-   - Electronic Technology Department, University of Seville, Spain  
+   - Electronic Technology Department, University of Seville, Spain
+   - https://ieeexplore.ieee.org/document/5632116
+     
 
 2. **ArduinoTensorFlowLiteTutorials / GestureToEmoji**  
    - https://github.com/arduino/ArduinoTensorFlowLiteTutorials/tree/master/GestureToEmoji
