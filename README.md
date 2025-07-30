@@ -268,7 +268,12 @@ EOG 방향 분류를 위한 3가지 모델을 구현하고 성능 비교 후 최
 ![캡스톤디자인대회최우수상](https://github.com/user-attachments/assets/9c34a8d0-3c7f-4ca7-8bd4-0bce211a80c4)
 
 &nbsp;
+### 대회 영상
+> https://youtu.be/b7gsw20pOGk?si=eo5Fte_9hxvChOGH
 
+&nbsp;
+
+### 시연 영상
 > https://youtu.be/0Lg0ZxRh0jA
 
 &nbsp;
